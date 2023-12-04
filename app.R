@@ -54,20 +54,17 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  menu.data <- read.csv("menu.csv")
-  menu.data <- data[, c("season", "dish", "ingredient")]
-  
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
 
     if (input$season != "All") {
-      m <- menu.data[menu.data$season == input$season, ]
+      m <- data[data$season == input$season, ]
     }
     if (input$ingredient != "All" && input$season == "All") {
-      m <- menu.data[grepl(input$ingredient, menu.data$ingredient), ]
+      m <- data[grepl(input$ingredient, data$ingredient), ]
     }
     if (input$ingredient != "All" && input$season != "All") {
-      m <- menu.data[menu.data$season == input$season, ]
+      m <- data[data$season == input$season, ]
       m <- m[grepl(input$ingredient, m$ingredient), ]
     }
     m
