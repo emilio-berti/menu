@@ -1,8 +1,8 @@
 library(shiny)
 
-tags$head(
-  tags$link(href = "bootstrap.min.css", rel = "stylesheet")
-)
+# tags$head(
+#   tags$link(href = "bootstrap.min.css", rel = "stylesheet")
+# )
 
 # m <- data.frame(
 #   rbind(
@@ -54,18 +54,21 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
+  data <- read.csv("menu.csv")
+  data <- data[, c("season", "dish", "ingredient")]
+  
   # Filter data based on selections
   output$table <- DT::renderDataTable(DT::datatable({
 
-    if (input$season != "All") {
+    if (input$season != "All" && input$ingredient == "All") {
       m <- data[data$season == input$season, ]
-    }
-    if (input$ingredient != "All" && input$season == "All") {
+    } else if (input$ingredient != "All" && input$season == "All") {
       m <- data[grepl(input$ingredient, data$ingredient), ]
-    }
-    if (input$ingredient != "All" && input$season != "All") {
+    } else if (input$ingredient != "All" && input$season != "All") {
       m <- data[data$season == input$season, ]
       m <- m[grepl(input$ingredient, m$ingredient), ]
+    } else {
+      m <- data
     }
     m
   }))
