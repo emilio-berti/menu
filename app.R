@@ -61,16 +61,16 @@ server <- function(input, output) {
   output$table <- DT::renderDataTable(DT::datatable({
 
     if (input$season != "All") {
-      data <- menu.data[data$season == input$season, ]
+      m <- menu.data[menu.data$season == input$season, ]
     }
     if (input$ingredient != "All" && input$season == "All") {
-      data <- menu.data[grepl(input$ingredient, data$ingredient), ]
+      m <- menu.data[grepl(input$ingredient, menu.data$ingredient), ]
     }
     if (input$ingredient != "All" && input$season != "All") {
-      data <- menu.data[data$season == input$season, ]
-      data <- data[grepl(input$ingredient, data$ingredient), ]
+      m <- menu.data[menu.data$season == input$season, ]
+      m <- m[grepl(input$ingredient, m$ingredient), ]
     }
-    data
+    m
   }))
 }
 
