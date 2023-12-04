@@ -63,8 +63,12 @@ server <- function(input, output) {
     if (input$season != "All") {
       data <- menu.data[data$season == input$season, ]
     }
-    if (input$ingredient != "All") {
+    if (input$ingredient != "All" && input$season == "All") {
       data <- menu.data[grepl(input$ingredient, data$ingredient), ]
+    }
+    if (input$ingredient != "All" && input$season != "All") {
+      data <- menu.data[data$season == input$season, ]
+      data <- data[grepl(input$ingredient, data$ingredient), ]
     }
     data
   }))
