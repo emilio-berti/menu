@@ -1,0 +1,12 @@
+name: menu
+title: menu
+username: popecology
+account: popecology
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10711143
+bundleId: 8004984
+url: https://popecology.shinyapps.io/menu/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
